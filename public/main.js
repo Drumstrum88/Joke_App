@@ -1,25 +1,59 @@
-// USE WITH FIREBASE AUTH
-// import ViewDirectorBasedOnUserAuthStatus from '../utils/viewDirector';
-import 'bootstrap'; // import bootstrap elements and js
+import 'bootstrap';
 import '../styles/main.scss';
+import { jokeRequest } from '../utils/requests';
 
 const init = () => {
-  document.querySelector('#app').innerHTML = `
-    <h1>HELLO! You are up and running!</h1>
-    <small>Open your dev tools</small><br />
-    <button class="btn btn-danger" id="click-me">Click ME!</button><br />
-    <hr />
-    <h2>These are font awesome icons:</h2>
-    <i class="fas fa-user fa-4x"></i> <i class="fab fa-github-square fa-5x"></i>
+  document.querySelector('#button-container').innerHTML = `
+    <button id="get-joke" class="btn btn-primary">Get Joke</button>
   `;
-  console.warn('YOU ARE UP AND RUNNING!');
-
-  document
-    .querySelector('#click-me')
-    .addEventListener('click', () => console.warn('You clicked that button!'));
-
-  // USE WITH FIREBASE AUTH
-  // ViewDirectorBasedOnUserAuthStatus();
 };
 
-init();
+const renderJokeCard = (joke) => {
+  const cardBody = document.createElement('div');
+  cardBody.classList.add('card-body');
+  const setupParagraph = document.createElement('p');
+  setupParagraph.classList.add('card-text');
+  setupParagraph.textContent = joke.setup;
+
+  const revealButton = document.createElement('button');
+  revealButton.id = 'reveal-punchline';
+  revealButton.classList.add('btn', 'btn-secondary');
+  revealButton.textContent = 'Reveal Punchline';
+
+  cardBody.appendChild(setupParagraph);
+  cardBody.appendChild(revealButton);
+
+  const jokeCard = document.createElement('div');
+  jokeCard.classList.add('card');
+  jokeCard.appendChild(cardBody);
+
+  document.querySelector('#joke-container').innerHTML = '';
+  document.querySelector('#joke-container').appendChild(jokeCard);
+
+  revealButton.addEventListener('click', () => {
+    if (joke.type === 'twopart') {
+      const punchlineParagraph = document.createElement('p');
+      punchlineParagraph.classList.add('card-text');
+      punchlineParagraph.textContent = joke.delivery;
+
+      cardBody.appendChild(punchlineParagraph);
+    }
+
+    revealButton.style.display = 'none';
+  });
+};
+
+const events = () => {
+  document.querySelector('#get-joke').addEventListener('click', () => {
+    jokeRequest().then((joke) => {
+      renderJokeCard(joke);
+    });
+  });
+};
+
+const startApp = () => {
+  init();
+  events();
+};
+
+startApp();
