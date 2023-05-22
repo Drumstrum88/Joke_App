@@ -3,8 +3,35 @@
 
 
 body {
-  background-color: antiquewhite;
-  color: brown;
+  background: linear-gradient(to right, #bdc3c7, #2c3e50);
   text-align: center;
   margin-top: 100px;
+}
+
+#joke-container {
+  margin: 0 auto;
+  width: 50%;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.card-body {
+  background-color: #bdc3c7;
+  // border-radius: 15px;
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 10px;
+  // margin: 0 auto;
+}
+
+.btn-primary {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: darkblue;
+  border-color: darkblue;
+  height: 95px;
+  width: 185px;
+  font-size: 25px;
+  border-radius: 100%;
+  
 }
