@@ -1,7 +1,9 @@
 import 'bootstrap';
 import '../styles/main.scss';
 import { jokeRequest } from '../utils/requests';
+// import { createHeader } from '../components/header';
 
+// createHeader();
 const init = () => {
   document.querySelector('#button-container').innerHTML = `
     <button id="get-joke" class="btn btn-primary">Get Joke</button>
